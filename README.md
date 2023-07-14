@@ -1,10 +1,6 @@
 
- Your project name
+ Libteam-so
  ==============================
   
- Please, edit this file to fit your own project's details.
- 
- Also, do not forget to
- 
- - fill in file AUTHORS with the pertinent information
- - edit heading comments in all source files with your data
+ This repository fill the exercises proposed in https://gitlab.com/monaco/syseg.
+ For any consideration, in AUTHORS you can find the formation team and their contacts.
