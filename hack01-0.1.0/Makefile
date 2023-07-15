@@ -22,7 +22,26 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+#########################################################################
+# 							HOW TO RUN                                  #
+#########################################################################
 
+# Para rodar e conseguir executar o problema a fim de obter o acesso
+# completo, se faz necessário seguir os seguintes passos:
+#	- make lib
+#	- make run
+#	- 'User name' e 'Authorization key' não serão autenticados, mas a 
+#	chave deve ser 'easy'
+# 'make lib' criará a biblioteca compartilhada na qual sobrescreverá a
+# função authorize criada pelo sistema.
+# 'make run' executa, utilizandod a biblioteca criada, o sistema de 
+# decriptação do 'sample.cry'. Para 'Decription key', usar 'easy'.
+# Caso seja necessário apagar os arquivos da biblioteca e a biblioteca,
+# executar 'make hide'.
+
+# Agente Monaco, esta mensagem se autodestruirá em 5 segundos, seja breve!
+
+#########################################################################
 
 init: all 
 
@@ -62,7 +81,7 @@ clean :
 
 
 EXPORT_FILES  = check.sh docrypt encrypt libauth.so.md5 test.cry sample.cry
-EXPORT_FILES += Makefile README credentials.cry   docrypt.md5   libauth.so   libmylib.so 
+EXPORT_FILES += Makefile README credentials.cry   docrypt.md5   libauth.so   libmylib.so
 EXPORT_FILES += README ../../tools/COPYING 
 
 
@@ -119,6 +138,15 @@ clean-export:
 
 .PHONY: syseg-export export clean-export
 
+lib:
+	gcc -m32 -c -fpic authorize.c
+	gcc -m32 -c -fpic autho.c
+	gcc -m32 --shared authorize.o autho.o -o libautho.so
 
+run:
+	LD_PRELOAD=libautho.so ./docrypt sample.cry
 
-
+hide:
+	rm autho.o
+	rm authorize.o
+	rm libautho.so
